@@ -26,3 +26,6 @@ ENV TZ=Asia/Shanghai
 
 # Install Oh-My-Zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# 将composer设置为国内源
+RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
