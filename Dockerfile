@@ -11,8 +11,12 @@ RUN yes | pecl install xdebug \
 	&& echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
 	&& echo "xdebug.remote_autostart=on" >> /usr/local/etc/php/conf.d/xdebug.ini
 
-# Install git, process tools, zsh, locales, git-flow vim
-RUN apt-get update && apt-get -y install git procps zsh less locales git-flow vim \
+# Configure apt
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install git, process tools, lsb-release (common in install instructions for CLIs), zsh, locales, git-flow vim
+RUN apt-get update && apt-get -y install --no-install-recommends apt-utils 2>&1 \
+	&& apt-get -y install git procps lsb-release zsh less locales git-flow vim \
 	# Clean up
 	&& apt-get autoremove -y \
 	&& apt-get clean -y \
@@ -20,6 +24,9 @@ RUN apt-get update && apt-get -y install git procps zsh less locales git-flow vi
 	# Add zh_CN locale support
 	&& echo 'zh_CN.UTF-8 UTF-8' >> /etc/locale.gen \
 	&& locale-gen
+
+# Clean up
+ENV DEBIAN_FRONTEND=dialog
 
 # Set time zone
 ENV TZ=Asia/Shanghai
@@ -36,3 +43,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 # 将composer设置为国内源
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+# Set the default shell to zsh rather than sh
+ENV SHELL /bin/zsh

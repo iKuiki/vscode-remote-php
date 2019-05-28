@@ -13,3 +13,4 @@
 - 时区设置为+0800
 - 安装了composer
 - 将composer设置为国内源
+- 设置默认shell为zsh
