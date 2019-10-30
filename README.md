@@ -14,3 +14,25 @@
 - 安装了composer
 - 将composer设置为国内源
 - 设置默认shell为zsh
+
+## 容器配置
+
+在代码中容器配置如下
+
+``` json
+{
+    "name": "PHP",
+    "dockerFile": "Dockerfile",
+    // Use 'settings' to set *default* container specific settings.json values on container create.
+    // You can edit these settings after create using File > Preferences > Settings > Remote.
+    "settings": {},
+    // Uncomment the next line if you want to publish any ports.
+    // "appPort": [],
+    // Uncomment the next line to run commands after the container is created.
+    // "postCreateCommand": "php -v",
+    "extensions": [
+        "felixfbecker.php-debug",
+        "felixfbecker.php-intellisense"
+    ]
+}
+```
